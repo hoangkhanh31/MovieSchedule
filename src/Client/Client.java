@@ -1,6 +1,7 @@
 package Client;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -47,6 +48,7 @@ import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class Client {
 
@@ -96,6 +98,8 @@ public class Client {
 	private void initialize() {
 		Color primary_color = new Color(216, 45, 139);
 		Color white_color = new Color(255, 255, 255);
+		Color background_color = new Color(255, 240, 246);
+		Color border_color = new Color(235, 47, 150);
 
 		frame = new JFrame();
 		frame.setBackground(new Color(255, 255, 255));
@@ -116,7 +120,7 @@ public class Client {
 		HeaderJP.add(logoHeaderLbl);
 
 		JLabel headerLbl = new JLabel("LỊCH CHIẾU PHIM");
-		headerLbl.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		headerLbl.setFont(new Font("Tahoma", Font.BOLD, 22));
 		headerLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		headerLbl.setBounds(358, 11, 404, 58);
 		headerLbl.setForeground(primary_color);
@@ -139,6 +143,7 @@ public class Client {
 		JPanel panel_all = new JPanel();
 		panel_all.setBackground(white_color);
 		panel_all.setBounds(10, 11, 100, 66);
+		panel_all.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_all);
 		panel_all.setLayout(null);
 
@@ -189,6 +194,7 @@ public class Client {
 		panel_cgv.setLayout(null);
 		panel_cgv.setBackground(Color.WHITE);
 		panel_cgv.setBounds(115, 11, 95, 66);
+		panel_cgv.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_cgv);
 
 		JLabel cgvCinemaLbl = new JLabel("");
@@ -201,6 +207,7 @@ public class Client {
 		panel_lotte.setLayout(null);
 		panel_lotte.setBackground(Color.WHITE);
 		panel_lotte.setBounds(220, 11, 95, 66);
+		panel_lotte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_lotte);
 
 		JLabel lotteCinemaLbl = new JLabel("");
@@ -212,6 +219,7 @@ public class Client {
 		panel_galaxy.setLayout(null);
 		panel_galaxy.setBackground(Color.WHITE);
 		panel_galaxy.setBounds(325, 11, 95, 66);
+		panel_galaxy.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_galaxy);
 
 		JLabel galaxyCinemaLbl = new JLabel("");
@@ -223,6 +231,7 @@ public class Client {
 		panel_bhd.setLayout(null);
 		panel_bhd.setBackground(Color.WHITE);
 		panel_bhd.setBounds(430, 11, 95, 66);
+		panel_bhd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_bhd);
 
 		JLabel bhdCinemaLbl = new JLabel("");
@@ -234,6 +243,7 @@ public class Client {
 		panel_beta.setLayout(null);
 		panel_beta.setBackground(Color.WHITE);
 		panel_beta.setBounds(535, 11, 95, 66);
+		panel_beta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_beta);
 
 		JLabel betaCinemaLbl = new JLabel("");
@@ -245,6 +255,7 @@ public class Client {
 		panel_cinestar.setLayout(null);
 		panel_cinestar.setBackground(Color.WHITE);
 		panel_cinestar.setBounds(640, 11, 95, 66);
+		panel_cinestar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_cinestar);
 
 		JLabel cinestarCinemaLbl = new JLabel("");
@@ -256,6 +267,7 @@ public class Client {
 		panel_mega.setLayout(null);
 		panel_mega.setBackground(Color.WHITE);
 		panel_mega.setBounds(745, 11, 95, 66);
+		panel_mega.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_mega);
 
 		JLabel megaCinemaLbl = new JLabel("");
@@ -267,6 +279,7 @@ public class Client {
 		panel_dcine.setLayout(null);
 		panel_dcine.setBackground(Color.WHITE);
 		panel_dcine.setBounds(850, 11, 95, 66);
+		panel_dcine.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cinemaJP.add(panel_dcine);
 
 		JLabel dcineCinemaLbl = new JLabel("");
@@ -286,9 +299,10 @@ public class Client {
 		SearchBarJP.setLayout(null);
 
 		searchTxt = new JTextField();
-		searchTxt.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		searchTxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		searchTxt.setText("Tìm theo tên rạp...");
 		searchTxt.setBounds(10, 11, 197, 42);
+		searchTxt.setForeground(primary_color);
 		SearchBarJP.add(searchTxt);
 		searchTxt.setColumns(10);
 
@@ -298,11 +312,13 @@ public class Client {
 		SearchBarJP.add(searchBtn);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(43, 90, 309, 467);
+		scrollPane.setBounds(43, 90, 309, 441);
 		SearchCinemaJP.add(scrollPane);
 
 		tbl_cinema = new JTable();
-		scrollPane.setColumnHeaderView(tbl_cinema);
+		tbl_cinema.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tbl_cinema.setRowHeight(25);
+		scrollPane.setViewportView(tbl_cinema);
 
 		JPanel ContentJP = new JPanel();
 		ContentJP.setBounds(418, 87, 766, 581);
@@ -311,34 +327,33 @@ public class Client {
 		ContentJP.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Lịch chiếu tại :");
-		lblNewLabel.setBounds(21, 30, 97, 58);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(21, 11, 97, 69);
+		lblNewLabel.setForeground(primary_color);
 		ContentJP.add(lblNewLabel);
 		
 		txt_cinema = new JTextField();
-		txt_cinema.setBounds(128, 30, 172, 58);
+		txt_cinema.setBounds(119, 30, 176, 35);
+		txt_cinema.setForeground(primary_color);
 		ContentJP.add(txt_cinema);
 		txt_cinema.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ngày");
-		lblNewLabel_1.setBounds(344, 52, 46, 14);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(305, 13, 63, 69);
+		lblNewLabel_1.setForeground(primary_color);
 		ContentJP.add(lblNewLabel_1);
 		
 		date_date = new JDateChooser();
-		date_date.setBounds(400, 11, 221, 89);
+		date_date.setBounds(367, 30, 213, 35);
 		ContentJP.add(date_date);
 		
-		tbl_showtimes = new JTable();
-		tbl_showtimes.setBounds(55, 111, 676, 421);
-		//thêm sự kiện cho bảng ds phim
-        tbl_showtimes.addMouseListener(new java.awt.event.MouseAdapter() {
-    		public void mouseClicked(java.awt.event.MouseEvent evt) {
-    			tblShowTimesMouseClicked(evt);
-    		}
-    	});
-		
-		ContentJP.add(tbl_showtimes);
-		
 		JButton btnUpdate = new JButton("Cập nhật");
+		btnUpdate.setForeground(primary_color);
+		btnUpdate.setBackground(background_color);
+		btnUpdate.setBorder(new LineBorder(border_color));
+		btnUpdate.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Clear dữ liệu cũ của Table
@@ -388,10 +403,14 @@ public class Client {
                 }
 			}
 		});
-		btnUpdate.setBounds(642, 48, 89, 23);
+		btnUpdate.setBounds(603, 33, 117, 29);
 		ContentJP.add(btnUpdate);
 		
 		JButton btnDetail = new JButton("Xem chi tiết");
+		btnDetail.setForeground(primary_color);
+		btnDetail.setBackground(background_color);
+		btnDetail.setBorder(new LineBorder(border_color));
+		btnDetail.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnDetail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        if(idFilmChosen == 0) {
@@ -403,8 +422,23 @@ public class Client {
 		        }
 			}
 		});
-		btnDetail.setBounds(538, 543, 162, 23);
+		btnDetail.setBounds(494, 537, 222, 29);
 		ContentJP.add(btnDetail);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(21, 91, 710, 441);
+		ContentJP.add(scrollPane_1);
+		
+		tbl_showtimes = new JTable();
+		tbl_showtimes.setRowHeight(25);
+		tbl_showtimes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane_1.setViewportView(tbl_showtimes);
+		//thêm sự kiện cho bảng ds phim
+        tbl_showtimes.addMouseListener(new java.awt.event.MouseAdapter() {
+    		public void mouseClicked(java.awt.event.MouseEvent evt) {
+    			tblShowTimesMouseClicked(evt);
+    		}
+    	});
 
 		// Thêm sự kiện cho Panel All Cinema
 		panel_all.addMouseListener(new MouseAdapter() {
