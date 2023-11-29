@@ -21,6 +21,7 @@ public class Film implements Serializable{
 	private ArrayList<String> ApiCasts;
 	private String GraphicUrl;
 	private String TrailerUrl;
+	private String[][] TopComment;
 	
 	
 	public String getSynopsisEn() {
@@ -53,6 +54,14 @@ public class Film implements Serializable{
 	
 	public void setApiRating(String apiRating) {
 		ApiRating = apiRating;
+	}
+	
+	public String[][] getTopComments() {
+		return TopComment;
+	}
+
+	public void setTopComments(String[][] topComment) {
+		this.TopComment = topComment;
 	}
 	
 	public String getTitle() {

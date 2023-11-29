@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
@@ -38,9 +39,9 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		try (DatagramSocket socket = new DatagramSocket(5000)) {
 			System.out.println("Khởi tạo server thành công!");
-
+			PostIpToApi();
 			filmList = getFilmData();
-			System.out.println(filmList);
+//			System.out.println(filmList);
 			cinemaList = getCinemas();
 			byte[] receiveData = new byte[1048576];
 			byte[] sendData = new byte[1048576];
@@ -103,6 +104,22 @@ public class Server {
 				socket.send(packet);
 			}
 		}
+	}
+	
+	private static void PostIpToApi() throws IOException, NullPointerException{
+		Socket socket = new Socket("google.com", 80);
+		
+        String localIP = socket.getLocalAddress().toString().substring(1);
+        
+		String api = "https://api-generator.retool.com/cEQCXR/movieSchedule/1"; // Ghi vào dòng 1
+        String jsonData = "{\"ip\":\"" + localIP + "\"}";
+		Jsoup.connect(api)
+			       .ignoreContentType(true).ignoreHttpErrors(true)
+			       .header("Content-Type", "application/json")
+			       .requestBody(jsonData)
+			       .method(Connection.Method.PUT).execute();
+		socket.close();
+		System.out.println("Post IP lên API thành công");
 	}
 
 	private static ArrayList<Cinema> getCinemas() {
@@ -233,7 +250,7 @@ public class Server {
 			JSONObject Data = dataMoviesNow.getJSONObject("Data");
 			JSONArray Items = Data.getJSONArray("Items");
 			ArrayList<Film> list = new ArrayList<Film>();
-			System.out.println(Items.length());
+//			System.out.println(Items.length());
 			for (int i = 0; i < Items.length(); i++) {
 				Film f = new Film();
 				f.setId(Items.getJSONObject(i).getInt("Id"));
@@ -242,7 +259,8 @@ public class Server {
 				f.setApiFilmType(Items.getJSONObject(i).optString("ApiFilmType", ""));
 				f.setApiGenreName(Items.getJSONObject(i).optString("ApiGenreName", ""));
 				f.setSynopsisEn(Items.getJSONObject(i).optString("SynopsisEn", ""));
-				System.out.println(i);
+				
+//				System.out.println(i);
 				list.add(f);
 			}
 
@@ -331,7 +349,6 @@ public class Server {
 			Film f = new Film();
 			f.setId(Data.getInt("Id"));
 			System.out.println(Data.getInt("Id"));
-			System.out.println("asfasf");
 
 			f.setTitle(Data.getString("Title"));
 			f.setApiRating(Data.getString("ApiRating"));
@@ -361,6 +378,14 @@ public class Server {
 			}
 			f.setApiCasts(casts);
 			f.setTrailerUrl(Data.getString("TrailerUrl"));
+			
+//			Fixxxxxxxxxx
+//			String[][] topComments = new String[Items.getJSONObject(i).getJSONArray("TopComments").length()][2];
+//			for( int j = 0; j < Items.getJSONObject(i).getJSONArray("TopComments").length(); j++){
+//				topComments[j][0] = Items.getJSONObject(i).getJSONArray("TopComments").getJSONObject(j).getString("creatorName");
+//				topComments[j][1] = Items.getJSONObject(i).getJSONArray("TopComments").getJSONObject(j).getString("desc");
+//			};
+//			f.setTopComments(topComments);
 
 			return f;
 		} catch (Exception e) {
@@ -421,7 +446,7 @@ public class Server {
 			for (int i = 0; i < showtimes.size(); i++) {
 				System.out.println(showtimes.get(i));
 				if (showtimes.get(i).contains("2D Phụ Đề Việt") && showtimes.get(i + 1).contains("2D Lồng Tiếng")) {
-					System.out.println("log");
+//					System.out.println("log");
 
 					showtimes.remove(i + 1);
 				}

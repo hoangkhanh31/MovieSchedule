@@ -50,6 +50,7 @@ public class Details {
 
 	private JLabel graphic_URL;
 	private JTable tbl_showtimes;
+	private JTable tbl_comments;
 //	/**
 //	 * Launch the application.
 //	 */
@@ -97,6 +98,21 @@ public class Details {
 			System.out.println(e);
 		}
 
+		
+		//Comment
+//		String[][] TopComments = film.getTopComments();
+		String[][] TopComments = {
+		            {"Comment1-1", "Comment1-2"},
+		            {"Comment2-1", "Comment2-2"},
+		            {"Comment3-1", "Comment3-2"},
+		            {"Comment4-1", "Comment4-2"},
+		            {"Comment5-1", "Comment5-2"},
+		            {"Comment6-1", "Comment6-2"},
+		            {"Comment7-1", "Comment7-2"}
+		        };
+		
+		final DefaultTableModel model_tbl_comments = new DefaultTableModel(TopComments, new String[] {"User", "Comment"});
+		tbl_comments.setModel(model_tbl_comments);
 	}
 
 	/**
@@ -164,11 +180,16 @@ public class Details {
 		Sidebar.add(btn_viewTrailer);
 
 		JLabel txt_imdb_score = new JLabel();
-		txt_imdb_score.setText("7/10");
 		txt_imdb_score.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_imdb_score.setForeground(new Color(255, 204, 255));
 		txt_imdb_score.setFont(new Font("Tahoma", Font.BOLD, 36));
 		txt_imdb_score.setBounds(30, 589, 129, 40);
+//		txt_imdb_score.setText("7/10");
+		if (film.getApiImdb().equals("")) {
+        	txt_imdb_score.setText("Chưa có");
+        } else {
+        	txt_imdb_score.setText(film.getApiImdb());
+        }
 		Sidebar.add(txt_imdb_score);
 
 		JSeparator jSeparator1 = new JSeparator();
@@ -188,11 +209,16 @@ public class Details {
 		Sidebar.add(jLabel4);
 
 		JLabel txt_rotten_tomatoes_score = new JLabel();
-		txt_rotten_tomatoes_score.setText("58%");
 		txt_rotten_tomatoes_score.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_rotten_tomatoes_score.setForeground(new Color(255, 204, 255));
 		txt_rotten_tomatoes_score.setFont(new Font("Tahoma", Font.BOLD, 36));
 		txt_rotten_tomatoes_score.setBounds(192, 589, 129, 40);
+//		txt_rotten_tomatoes_score.setText("58%");
+		if (film.getApiRottenTomatoes().equals("")) {
+        	txt_rotten_tomatoes_score.setText("Chưa có");
+        } else {
+        	txt_rotten_tomatoes_score.setText(film.getApiRottenTomatoes());
+        }
 		Sidebar.add(txt_rotten_tomatoes_score);
 
 		JLabel jLabel6 = new JLabel();
@@ -314,23 +340,6 @@ public class Details {
 		jLabel12.setBounds(33, 543, 756, 29);
 		Information.add(jLabel12);
 
-		JTextArea txt_review = new JTextArea();
-		txt_review.setWrapStyleWord(true);
-		txt_review.setText("Mãn nhãn, thú vị, đậm màu drama Hàn Quốc.");
-		txt_review.setTabSize(4);
-		txt_review.setRows(5);
-		txt_review.setLineWrap(true);
-		txt_review.setForeground(new Color(102, 102, 102));
-		txt_review.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		txt_review.setEnabled(false);
-		txt_review.setDisabledTextColor(new Color(51, 51, 51));
-		txt_review.setColumns(20);
-		txt_review.setCaretColor(Color.WHITE);
-		txt_review.setBorder(null);
-		txt_review.setBackground(new Color(255, 249, 254));
-		txt_review.setBounds(35, 583, 754, 110);
-		Information.add(txt_review);
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(33, 397, 756, 139);
 		Information.add(scrollPane);
@@ -339,6 +348,15 @@ public class Details {
 		tbl_showtimes.setRowHeight(25);
 		tbl_showtimes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane.setViewportView(tbl_showtimes);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(33, 582, 756, 128);
+		Information.add(scrollPane_1);
+		
+		tbl_comments = new JTable();
+		tbl_comments.setRowHeight(25);
+		tbl_comments.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane_1.setViewportView(tbl_comments);
 		frame.setVisible(true);
 	}
 
@@ -405,4 +423,5 @@ public class Details {
 			tbl_showtimes.setModel(model_tbl_showtimes);
 		}
 	}
+	
 }

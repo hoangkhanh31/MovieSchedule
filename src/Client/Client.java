@@ -22,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +39,11 @@ import java.awt.BorderLayout;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.json.JSONObject;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import Objects.Cinema;
 
@@ -67,6 +73,7 @@ public class Client {
 	private JTable tbl_showtimes;
 	public static int idFilmChosen;
 	public static String filmNameChosen;
+	public InetAddress IPAddress = getInetAddress();
 	
 	
 	/**
@@ -366,7 +373,7 @@ public class Client {
         			txt_cinema.setText(listCinema.get(selectedRow).getName());
         			try {
             			DatagramSocket socket = new DatagramSocket();
-
+            			
             			InetAddress IPAddress = InetAddress.getByName("localhost");
             		    byte[] sendData = new byte[1048576];
             		    byte[] receiveData = new byte[1048576];
@@ -447,7 +454,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -488,7 +495,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -529,7 +536,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -570,7 +577,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -611,7 +618,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -652,7 +659,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -693,7 +700,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -734,7 +741,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -775,7 +782,7 @@ public class Client {
 				try {
         			DatagramSocket socket = new DatagramSocket();
 
-        			InetAddress IPAddress = InetAddress.getByName("localhost");
+//        			InetAddress IPAddress = InetAddress.getByName("localhost");
         		    byte[] sendData;
         		    byte[] receiveData = new byte[1048576];	
         		 
@@ -822,7 +829,7 @@ public class Client {
                     try {
             			DatagramSocket socket = new DatagramSocket();
 
-            			InetAddress IPAddress = InetAddress.getByName("localhost");
+//            			InetAddress IPAddress = InetAddress.getByName("localhost");
             		    byte[] sendData = new byte[1048576];
             		    byte[] receiveData = new byte[1048576];
             		    
@@ -908,7 +915,7 @@ public class Client {
     			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     			DatagramSocket socket = new DatagramSocket();
 
-    			InetAddress IPAddress = InetAddress.getByName("localhost");
+//    			InetAddress IPAddress = InetAddress.getByName("localhost");
     		    byte[] sendData = new byte[1048576];
     		    byte[] receiveData = new byte[1048576];
     		    
@@ -945,4 +952,35 @@ public class Client {
 		}
 	}
     
+    private static String getIpFromApi(){
+    	try {
+    		String api = "https://api-generator.retool.com/cEQCXR/movieSchedule/1";
+    		
+    		Document doc = Jsoup.connect(api)
+                    .ignoreContentType(true).ignoreHttpErrors(true)
+                    .header("Content-Type", "application/json")
+                    .method(Connection.Method.GET).execute().parse();
+            JSONObject jsonObject = new JSONObject(doc.text());
+            
+            String ip = jsonObject.get("ip").toString();
+//            System.out.println(jsonObject.get("ip"));
+            return ip;
+    	}
+    	catch (IOException e) {
+    		System.out.println("Lỗi tại hàm getIpFromApi");
+    		return null;
+    	}
+    }
+    
+    private static InetAddress getInetAddress() {
+    	try {
+    		String ip = getIpFromApi();
+    		InetAddress IPAddress = InetAddress.getByName(ip);
+    		return IPAddress;
+    	}
+    	catch (UnknownHostException e){
+    		System.out.println("Lỗi tại hàm getInetAddress");
+    		return null;
+    	}
+    }
 }
