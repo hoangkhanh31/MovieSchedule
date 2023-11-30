@@ -36,6 +36,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 
 public class Details {
 
@@ -100,16 +101,16 @@ public class Details {
 
 		
 		//Comment
-//		String[][] TopComments = film.getTopComments();
-		String[][] TopComments = {
-		            {"Comment1-1", "Comment1-2"},
-		            {"Comment2-1", "Comment2-2"},
-		            {"Comment3-1", "Comment3-2"},
-		            {"Comment4-1", "Comment4-2"},
-		            {"Comment5-1", "Comment5-2"},
-		            {"Comment6-1", "Comment6-2"},
-		            {"Comment7-1", "Comment7-2"}
-		        };
+		String[][] TopComments = film.getTopComments();
+//		String[][] TopComments = {
+//		            {"Comment1-1", "Comment1-2"},
+//		            {"Comment2-1", "Comment2-2"},
+//		            {"Comment3-1", "Comment3-2"},
+//		            {"Comment4-1", "Comment4-2"},
+//		            {"Comment5-1", "Comment5-2"},
+//		            {"Comment6-1", "Comment6-2"},
+//		            {"Comment7-1", "Comment7-2"}
+//		        };
 		
 		final DefaultTableModel model_tbl_comments = new DefaultTableModel(TopComments, new String[] {"User", "Comment"});
 		tbl_comments.setModel(model_tbl_comments);
@@ -128,7 +129,7 @@ public class Details {
 		frame = new JFrame();
 		frame.setBackground(new Color(255, 255, 255));
 		frame.setBounds(100, 100, 1210, 760);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(white_color);
 		frame.getContentPane().setLayout(null);
@@ -182,7 +183,7 @@ public class Details {
 		JLabel txt_imdb_score = new JLabel();
 		txt_imdb_score.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_imdb_score.setForeground(new Color(255, 204, 255));
-		txt_imdb_score.setFont(new Font("Tahoma", Font.BOLD, 36));
+		txt_imdb_score.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txt_imdb_score.setBounds(30, 589, 129, 40);
 //		txt_imdb_score.setText("7/10");
 		if (film.getApiImdb().equals("")) {
@@ -211,7 +212,7 @@ public class Details {
 		JLabel txt_rotten_tomatoes_score = new JLabel();
 		txt_rotten_tomatoes_score.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_rotten_tomatoes_score.setForeground(new Color(255, 204, 255));
-		txt_rotten_tomatoes_score.setFont(new Font("Tahoma", Font.BOLD, 36));
+		txt_rotten_tomatoes_score.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txt_rotten_tomatoes_score.setBounds(192, 589, 129, 40);
 //		txt_rotten_tomatoes_score.setText("58%");
 		if (film.getApiRottenTomatoes().equals("")) {
@@ -232,6 +233,7 @@ public class Details {
 
 		JPanel Information = new JPanel();
 		Information.setBounds(368, 0, 826, 721);
+		Information.setBackground(background_color);
 		Details.add(Information);
 		Information.setLayout(null);
 

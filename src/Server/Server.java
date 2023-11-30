@@ -199,6 +199,7 @@ public class Server {
 
 	private static ArrayList<String> getFilmByDay(int idCinema, String date) {
 		String URL = "https://moveek.com/cinema/showtime/" + String.valueOf(idCinema) + "?date=" + date + "&header=1";
+		System.out.println(URL);
 		Document doc;
 		try {
 			doc = Jsoup.connect(URL).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
@@ -380,12 +381,13 @@ public class Server {
 			f.setTrailerUrl(Data.getString("TrailerUrl"));
 			
 //			Fixxxxxxxxxx
-//			String[][] topComments = new String[Items.getJSONObject(i).getJSONArray("TopComments").length()][2];
-//			for( int j = 0; j < Items.getJSONObject(i).getJSONArray("TopComments").length(); j++){
-//				topComments[j][0] = Items.getJSONObject(i).getJSONArray("TopComments").getJSONObject(j).getString("creatorName");
-//				topComments[j][1] = Items.getJSONObject(i).getJSONArray("TopComments").getJSONObject(j).getString("desc");
-//			};
-//			f.setTopComments(topComments);
+			String[][] topComments = new String[Data.getJSONArray("TopComments").length()][2];
+			for( int j = 0; j < Data.getJSONArray("TopComments").length(); j++){
+				topComments[j][0] = Data.getJSONArray("TopComments").getJSONObject(j).getString("creatorName");
+				topComments[j][1] = Data.getJSONArray("TopComments").getJSONObject(j).getString("desc");
+//				System.out.println(topComments[j][0] + " : " + topComments[j][1]);
+			};
+			f.setTopComments(topComments);
 
 			return f;
 		} catch (Exception e) {

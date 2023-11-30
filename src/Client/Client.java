@@ -55,6 +55,8 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JSeparator;
+import javax.swing.UIManager;
 
 public class Client {
 
@@ -107,6 +109,7 @@ public class Client {
 		Color white_color = new Color(255, 255, 255);
 		Color background_color = new Color(255, 240, 246);
 		Color border_color = new Color(235, 47, 150);
+		Color gray_color = new Color(192,192,192);
 
 		frame = new JFrame();
 		frame.setBackground(new Color(255, 255, 255));
@@ -118,7 +121,7 @@ public class Client {
 
 		JPanel HeaderJP = new JPanel();
 		HeaderJP.setBounds(0, 0, 1184, 93);
-		frame.getContentPane().add(HeaderJP);
+		frame.add(HeaderJP);
 		HeaderJP.setLayout(null);
 
 		JLabel logoHeaderLbl = new JLabel("");
@@ -820,7 +823,7 @@ public class Client {
 		tbl_cinema.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {		
-            	
+            	model_tbl_film.setRowCount(0);
                 int selectedRow = tbl_cinema.getSelectedRow();
                 if (selectedRow >= 0) {
                 	getCurrentDate();
